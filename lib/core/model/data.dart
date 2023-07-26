@@ -1,0 +1,27 @@
+import 'package:king_of_jigsaw/core/assets/app_assets.dart';
+
+final listImage = [
+  AppAssets.imgCover2,
+  AppAssets.imgCover1,
+  AppAssets.imgCover3,
+  AppAssets.imgBackground,
+  AppAssets.imgCover4,
+  AppAssets.imgCover1,
+  AppAssets.imgBackground,
+  AppAssets.imgCover2,
+  AppAssets.imgCover3,
+  AppAssets.imgBackground,
+  AppAssets.imgCover4,
+  AppAssets.imgCover3,
+  AppAssets.imgCover2,
+  AppAssets.imgCover3,
+  AppAssets.imgCover4,
+  AppAssets.imgBackground,
+  AppAssets.imgCover1,
+  AppAssets.imgCover2,
+  AppAssets.imgCover2,
+  AppAssets.imgCover4,
+  AppAssets.imgBackground,
+  AppAssets.imgCover2,
+  AppAssets.imgCover4,
+];
