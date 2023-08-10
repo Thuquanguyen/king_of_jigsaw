@@ -22,68 +22,75 @@ class MainScreen extends GetView<MainController> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: Obx(() => Scaffold(
-          drawerEdgeDragWidth: 0,
-          body: Column(
-            children: [
-              Expanded(
-                  child: IndexedStack(
-                    index: controller.navMenuIndex(),
-                    children: controller.menuPages,
-                  ))
-            ],
-          ),
-          floatingActionButton: FloatingActionButton( //Floating action button on Scaffold
-            onPressed: (){
-              //code to execute on button press
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle
+      child: Obx(() =>
+          Scaffold(
+              drawerEdgeDragWidth: 0,
+              body: Column(
+                children: [
+                  Expanded(
+                      child: IndexedStack(
+                        index: controller.navMenuIndex(),
+                        children: controller.menuPages,
+                      ))
+                ],
               ),
-              padding: EdgeInsets.all(5.w),
-              child: const Icon(Icons.camera,color: Colors.pinkAccent,size: 40,),
-            ), //icon inside button
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: controller.navMenuIndex(),
-            items: controller.navMenuItems,
-            onTap: (index) {
-              controller.onTapBottomBar(index);
-            },
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: AppColors.colorDefault,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.pink,
-            unselectedLabelStyle:
-            const TextStyle(color: Colors.pink),
-            selectedLabelStyle:
-            const TextStyle(color: Colors.white),
-            showUnselectedLabels: true,
-          ))),
+              floatingActionButton: FloatingActionButton( //Floating action button on Scaffold
+                onPressed: () {
+                  controller.getFormCamera();
+                  //code to execute on button press
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle
+                  ),
+                  padding: EdgeInsets.all(5.w),
+                  child: const Icon(
+                    Icons.camera, color: Colors.pinkAccent, size: 40,),
+                ), //icon inside button
+              ),
+              floatingActionButtonLocation: FloatingActionButtonLocation
+                  .centerDocked,
+              bottomNavigationBar: BottomNavigationBar(
+                currentIndex: controller.navMenuIndex(),
+                items: controller.navMenuItems,
+                onTap: (index) {
+                  controller.onTapBottomBar(index);
+                },
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: AppColors.colorDefault,
+                selectedItemColor: Colors.white,
+                unselectedItemColor: Colors.pink,
+                unselectedLabelStyle:
+                const TextStyle(color: Colors.pink),
+                selectedLabelStyle:
+                const TextStyle(color: Colors.white),
+                showUnselectedLabels: true,
+              ))),
     );
   }
 }
 
 extension on MainScreen {
 
-  _buildHeader() => Container(
+  _buildHeader() =>
+      Container(
         color: const Color.fromRGBO(38, 38, 37, 1),
         child: Column(
           children: [
             SizedBox(
               height: Dimens.topSafeAreaPadding,
             ),
-            Obx(() => Visibility(
+            Obx(() =>
+                Visibility(
                   visible: controller.isLoadAds.value,
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: SizedBox(
                       width: controller.bannerAd.value.size.width.toDouble(),
                       height: controller.bannerAd.value.size.height.toDouble(),
-                      child: AdWidget(ad: controller.bannerAd.value,key: Key("ADSEN"),),
+                      child: AdWidget(
+                        ad: controller.bannerAd.value, key: Key("ADSEN"),),
                     ),
                   ),
                 )),
@@ -101,8 +108,8 @@ extension on MainScreen {
                   Touchable(
                       onTap: () {
                         Get.bottomSheet(
-                          const PremiumScreen(),
-                          isScrollControlled: true
+                            const PremiumScreen(),
+                            isScrollControlled: true
                         );
                       },
                       child: Row(

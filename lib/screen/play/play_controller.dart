@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -26,6 +27,7 @@ class PlayController extends BaseController {
   RxInt heightX = 1.obs;
   RxInt index = 0.obs;
   RxInt column = 3.obs;
+  RxDouble valueProgress = 1.0.obs;
   RxList<LevelModel> levelList = <LevelModel>[
     LevelModel(
       title: "EASY",
@@ -46,6 +48,7 @@ class PlayController extends BaseController {
       isChecked: false,
     )
   ].obs;
+  Timer? _timer;
 
   @override
   void onInit() {
@@ -56,6 +59,29 @@ class PlayController extends BaseController {
     }, 100);
     super.onInit();
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _timer?.cancel();
+    super.dispose();
+  }
+
+
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (valueProgress.value == 0) {
+          timer.cancel();
+        } else {
+          valueProgress.value-= 0.01;
+        }
+      },
+    );
+  }
+
 
   void changeSelected(int index, {Function? callBack}) {
     for (int i = 0; i < levelList.length; i++) {
@@ -129,6 +155,7 @@ class PlayController extends BaseController {
                           } else {
                             splitImage(args);
                           }
+                          startTimer();
                         },
                         child: Container(
                           decoration: BoxDecoration(

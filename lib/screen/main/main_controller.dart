@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:king_of_jigsaw/screen/every_day/every_day_screen.dart';
 import 'package:king_of_jigsaw/screen/home/home_screen.dart';
 import 'package:king_of_jigsaw/screen/setting/setting_screen.dart';
@@ -14,7 +17,6 @@ import 'keep_alive_page.dart';
 import 'model/screen_model.dart';
 
 class MainController extends BaseController {
-
   final screensData = <ScreenModel>[
     ScreenModel(
         name: "Library",
@@ -26,10 +28,7 @@ class MainController extends BaseController {
         screen: KeepAlivePage(child: const EveryDayScreen()),
         navKey: 2,
         icon: Icons.account_circle),
-    ScreenModel(
-        name: "",
-        screen: KeepAlivePage(child: SizedBox()),
-        navKey: 5),
+    ScreenModel(name: "", screen: KeepAlivePage(child: SizedBox()), navKey: 5),
     ScreenModel(
         name: "Time line",
         screen: KeepAlivePage(child: const TimeLineScreen()),
@@ -48,16 +47,15 @@ class MainController extends BaseController {
 
   // store the pages stack.
   List<Widget>? _pages;
-
+  Rx<File> imageFile = File("").obs;
   // get navigators.
-  List<Widget> get menuPages => _pages ??= screensData.map((e) => TabNav(e)).toList();
+  List<Widget> get menuPages =>
+      _pages ??= screensData.map((e) => TabNav(e)).toList();
 
   // widget stuffs.
   List<BottomNavigationBarItem> get navMenuItems => screensData.map((e) {
-    return BottomNavigationBarItem(
-        icon: Icon(e.icon),
-        label: e.name);
-  }).toList();
+        return BottomNavigationBarItem(icon: Icon(e.icon), label: e.name);
+      }).toList();
 
   void onTapBottomBar(int index) {
     navMenuIndex.value = index;
@@ -68,10 +66,10 @@ class MainController extends BaseController {
   }
 
   Rx<BannerAd> bannerAd = BannerAd(
-      size: AdSize(width: 0, height: 0),
-      adUnitId: AdManager.bannerAdUnitId,
-      listener: BannerAdListener(),
-      request: AdRequest())
+          size: AdSize(width: 0, height: 0),
+          adUnitId: AdManager.bannerAdUnitId,
+          listener: BannerAdListener(),
+          request: AdRequest())
       .obs;
   RxBool isLoadAds = false.obs;
   AppOpenAd? appOpenAd;
@@ -81,18 +79,26 @@ class MainController extends BaseController {
     // TODO: implement onInit
     loadBannerAds();
     AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
-    AppLifecycleReactor(appOpenAdManager: appOpenAdManager).listenToAppStateChanges();
+    AppLifecycleReactor(appOpenAdManager: appOpenAdManager)
+        .listenToAppStateChanges();
     super.onInit();
   }
 
   @override
   void dispose() {
-    print("dispos");
     bannerAd.value.dispose();
     super.dispose();
   }
 
-  void loadBannerAds(){
+  getFormCamera() async {
+    XFile? pickedFile = await ImagePicker()
+        .pickImage(source: ImageSource.camera, maxWidth: 1800, maxHeight: 1800);
+    if (pickedFile != null) {
+      imageFile.value = File(pickedFile.path);
+    }
+  }
+
+  void loadBannerAds() {
     BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
       request: AdRequest(),
@@ -109,5 +115,4 @@ class MainController extends BaseController {
       ),
     ).load();
   }
-
 }

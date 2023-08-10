@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slider_indicator/flutter_slider_indicator.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:king_of_jigsaw/core/assets/app_assets.dart';
 import 'package:king_of_jigsaw/core/common/imagehelper.dart';
@@ -104,16 +105,18 @@ class HomeScreen extends GetView<HomeController> {
             controller: controller.tabController,
             children: controller.tabs.map((Tab tab) {
               return KeepAlivePage(
-                  child: GridView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1,
+                  child: MasonryGridView.count(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     crossAxisSpacing: 10,
-                    mainAxisSpacing: 10),
-                itemBuilder: (ctx, index) => ItemImage(image: listImage[index],),
-                itemCount: listImage.length,
-              ));
+                    mainAxisSpacing: 10,
+                    itemBuilder: (ctx, index) => ItemImage(
+                      image: listImage[index],
+                    ),
+                    itemCount: listImage.length,
+                    crossAxisCount: 2,
+                  ),);
             }).toList(),
           ),
         ));

@@ -8,6 +8,7 @@ import '../../core/assets/app_assets.dart';
 import '../../core/common/imagehelper.dart';
 import '../../widget/item_image.dart';
 import 'every_day_controller.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class EveryDayScreen extends GetView<EveryDayController> {
   const EveryDayScreen({Key? key}) : super(key: key);
@@ -48,17 +49,17 @@ class EveryDayScreen extends GetView<EveryDayController> {
               style: TextStyles.body1,
             ),
           ),
-          GridView.builder(
+          MasonryGridView.count(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1 / 1.2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10),
-            itemBuilder: (ctx, index) => ItemImage(image: listImage[index],),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            itemBuilder: (ctx, index) => ItemImage(
+              image: listImage[index],
+            ),
             itemCount: listImage.length,
+            crossAxisCount: 2,
           ),
           const SizedBox(
             height: 20,

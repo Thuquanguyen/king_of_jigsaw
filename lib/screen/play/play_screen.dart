@@ -35,21 +35,25 @@ class PlayScreen extends GetView<PlayController> {
                 child: Row(
                   children: [
                     Touchable(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: ImageHelper.loadFromAsset(AppAssets.icBack1,
-                            width: 30, height: 30)),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: ImageHelper.loadFromAsset(AppAssets.icBack1,
+                          width: 30, height: 30),
+                    ),
                     Expanded(
-                        child: Center(
-                      child: Obx(() => Text(
+                      child: Center(
+                        child: Obx(
+                          () => Text(
                             controller
                                     .levelList[controller.index.value].title ??
                                 '',
                             style: TextStyles.title1
                                 .setColor(AppColors.colorDefault),
-                          )),
-                    )),
+                          ),
+                        ),
+                      ),
+                    ),
                     ImageHelper.loadFromAsset(AppAssets.icRefresh,
                         width: 30, height: 30),
                   ],
@@ -78,7 +82,23 @@ class PlayScreen extends GetView<PlayController> {
                           controller.listImageK.insert(newIndex, element);
                           controller.checkSuccess();
                         },
-                      )))
+                      ))),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 30.w),
+                height: 20,
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.r),
+                    color: Colors.grey),
+                child: Obx(() => LinearProgressIndicator(
+                      value: controller.valueProgress.value,
+                      color: Colors.red,
+                      backgroundColor: AppColors.colorDefault,
+                    )),
+              ),
+              SizedBox(
+                height: 30.h,
+              )
             ],
           ),
         )
