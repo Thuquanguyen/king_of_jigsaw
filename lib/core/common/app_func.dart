@@ -100,12 +100,17 @@ class AppFunc {
   }
 
   static showAlertDialog(BuildContext context,
-      {String? message, String? title}) {
+      {String? message, String? title,Function? callBack}) {
     // set up the button
     Widget okButton = TextButton(
       child: Text("OKay!",style: TextStyles.defaultStyle,),
       onPressed: () {
-        Get.back();
+        if(callBack == null){
+          Get.back();
+        }else{
+          Get.back();
+          callBack.call();
+        }
       },
     );
 

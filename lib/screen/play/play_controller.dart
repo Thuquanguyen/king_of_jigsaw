@@ -10,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:king_of_jigsaw/core/base/base_controller.dart';
 import 'package:image/image.dart' as imglib;
 import 'package:king_of_jigsaw/core/common/app_func.dart';
+import 'package:king_of_jigsaw/core/common/imagehelper.dart';
 import 'package:king_of_jigsaw/core/model/level_model.dart';
 import 'package:king_of_jigsaw/core/theme/app_colors.dart';
 import 'package:king_of_jigsaw/core/theme/textstyles.dart';
@@ -49,11 +50,11 @@ class PlayController extends BaseController {
     )
   ].obs;
   Timer? _timer;
+  RxString images = ''.obs;
 
   @override
   void onInit() {
     // TODO: implement onInit
-
     AppFunc.setTimeout(() {
       showBottomSheetChoiceLevel();
     }, 100);
@@ -67,21 +68,19 @@ class PlayController extends BaseController {
     super.dispose();
   }
 
-
   void startTimer() {
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
       oneSec,
-          (Timer timer) {
+      (Timer timer) {
         if (valueProgress.value == 0) {
           timer.cancel();
         } else {
-          valueProgress.value-= 0.01;
+          valueProgress.value -= 0.01;
         }
       },
     );
   }
-
 
   void changeSelected(int index, {Function? callBack}) {
     for (int i = 0; i < levelList.length; i++) {
@@ -146,16 +145,7 @@ class PlayController extends BaseController {
                     Touchable(
                         onTap: () {
                           Get.back();
-                          column.value = getSize();
-                          print("column.value = ${column.value}");
-                          column.refresh();
-                          String? args = Get.arguments;
-                          if (args == null) {
-                            splitImage(AppAssets.imgCover1);
-                          } else {
-                            splitImage(args);
-                          }
-                          startTimer();
+                          startPlay();
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -177,6 +167,61 @@ class PlayController extends BaseController {
                 )),
           );
         });
+  }
+
+  timerPause() {
+    _timer?.cancel();
+  }
+
+  showImagePreview(BuildContext context) {
+    showGeneralDialog(
+      context: context,
+      barrierColor: Colors.black12.withOpacity(0.6),
+      // Background color
+      barrierDismissible: false,
+      barrierLabel: 'Dialog',
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return Column(
+          children: <Widget>[
+            Expanded(
+              flex: 5,
+              child: SizedBox.expand(
+                  child: ImageHelper.loadFromAsset(images.value)),
+            ),
+            Expanded(
+              flex: 1,
+              child: SizedBox.expand(
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('Dismiss'),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  startPlay({bool isRefresh = false}) {
+    if (isRefresh) {
+      _timer?.cancel();
+      _timer = null;
+      listImageK.clear();
+      valueProgress.value = 1.0;
+    }
+    column.value = getSize();
+    print("column.value = ${column.value}");
+    column.refresh();
+    String? args = Get.arguments;
+    if (args == null) {
+      splitImage(AppAssets.imgCover1);
+    } else {
+      splitImage(args);
+      images.value = args;
+    }
+    startTimer();
   }
 
   splitImage(String imageX) async {

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:king_of_jigsaw/core/assets/app_assets.dart';
+import 'package:king_of_jigsaw/core/common/app_func.dart';
 import 'package:king_of_jigsaw/core/common/imagehelper.dart';
 import 'package:king_of_jigsaw/core/theme/app_colors.dart';
 import 'package:king_of_jigsaw/core/theme/textstyles.dart';
@@ -54,8 +55,30 @@ class PlayScreen extends GetView<PlayController> {
                         ),
                       ),
                     ),
-                    ImageHelper.loadFromAsset(AppAssets.icRefresh,
-                        width: 30, height: 30),
+                    Touchable(
+                        onTap: () {
+                          controller.timerPause();
+                          AppFunc.showAlertDialog(context,
+                              message: "You need to watch ads to get hints!",
+                              title: "Notification", callBack: () {
+                            controller.startTimer();
+                            controller.showImagePreview(context);
+                          });
+                        },
+                        child: Icon(
+                          Icons.help,
+                          color: AppColors.colorDefault,
+                          size: 30,
+                        )),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Touchable(
+                        onTap: () {
+                          controller.startPlay(isRefresh: true);
+                        },
+                        child: ImageHelper.loadFromAsset(AppAssets.icRefresh,
+                            width: 30, height: 30)),
                   ],
                 ),
               ),
