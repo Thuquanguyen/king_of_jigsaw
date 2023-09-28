@@ -19,26 +19,16 @@ import 'model/screen_model.dart';
 class MainController extends BaseController {
   final screensData = <ScreenModel>[
     ScreenModel(
-        name: "Library",
+        name: "Club Team",
         screen: KeepAlivePage(child: const HomeScreen()),
         navKey: 1,
-        icon: Icons.home_outlined),
-    ScreenModel(
-        name: "Every Day",
-        screen: KeepAlivePage(child: const EveryDayScreen()),
-        navKey: 2,
-        icon: Icons.account_circle),
+        icon: Icons.sports_soccer_sharp),
     ScreenModel(name: "", screen: KeepAlivePage(child: SizedBox()), navKey: 5),
     ScreenModel(
-        name: "Time line",
+        name: "National Team",
         screen: KeepAlivePage(child: const TimeLineScreen()),
-        navKey: 3,
-        icon: Icons.timeline),
-    ScreenModel(
-        name: "Setting",
-        screen: KeepAlivePage(child: const SettingScreen()),
-        navKey: 4,
-        icon: Icons.settings_suggest),
+        navKey: 2,
+        icon: Icons.sports_volleyball_outlined),
   ];
 
   final navMenuIndex = 0.obs;

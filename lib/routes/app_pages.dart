@@ -3,11 +3,17 @@ import 'package:get/get.dart';
 import 'package:king_of_jigsaw/screen/achievements/achievements_binding.dart';
 import 'package:king_of_jigsaw/screen/every_day/every_day_binding.dart';
 import 'package:king_of_jigsaw/screen/every_day/every_day_screen.dart';
+import 'package:king_of_jigsaw/screen/favorite/favorite_binding.dart';
+import 'package:king_of_jigsaw/screen/favorite/favorite_screen.dart';
 import 'package:king_of_jigsaw/screen/home/home_binding.dart';
 import 'package:king_of_jigsaw/screen/home/home_screen.dart';
+import 'package:king_of_jigsaw/screen/language/language_binding.dart';
+import 'package:king_of_jigsaw/screen/language/language_screen.dart';
 import 'package:king_of_jigsaw/screen/play/play_binding.dart';
 import 'package:king_of_jigsaw/screen/setting/setting_binding.dart';
 import 'package:king_of_jigsaw/screen/setting/setting_screen.dart';
+import 'package:king_of_jigsaw/screen/theme/theme_binding.dart';
+import 'package:king_of_jigsaw/screen/theme/theme_screen.dart';
 import 'package:king_of_jigsaw/screen/timeline/timeline_binding.dart';
 import 'package:king_of_jigsaw/screen/timeline/timeline_screen.dart';
 import '../screen/achievements/achievements_screen.dart';
@@ -52,6 +58,21 @@ class AppPages {
       name: _Paths.HOME,
       page: () => const HomeScreen(),
       binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.LANGUAGE,
+      page: () => const LanguageScreen(),
+      binding: LanguageBinding(),
+    ),
+    GetPage(
+      name: _Paths.THEME,
+      page: () => const ThemeScreen(),
+      binding: ThemeBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAVORITE,
+      page: () => const Favoritescreen(),
+      binding: FavoriteBinding(),
     ),
     GetPage(
       name: _Paths.EVERY_DAY,

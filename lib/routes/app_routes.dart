@@ -16,6 +16,9 @@ abstract class Routes {
   static const INFORMATION = _Paths.INFORMATION;
   static const AchievementScreen = _Paths.AchievementScreen;
   static const PLayScreen = _Paths.PLayScreen;
+  static const LANGUAGE = _Paths.LANGUAGE;
+  static const THEME = _Paths.THEME;
+  static const FAVORITE = _Paths.FAVORITE;
 }
 
 abstract class _Paths {
@@ -32,4 +35,7 @@ abstract class _Paths {
   static const INFORMATION = '/INFORMATION';
   static const AchievementScreen = '/AchievementScreen';
   static const PLayScreen = '/PLayScreen';
+  static const LANGUAGE = '/LANGUAGE';
+  static const THEME = '/THEME';
+  static const FAVORITE = '/FAVORITE';
 }

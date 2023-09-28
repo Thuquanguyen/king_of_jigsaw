@@ -87,7 +87,7 @@ class HomeScreen extends GetView<HomeController> {
                 labelColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicator: BubbleTabIndicator(
-                  indicatorHeight: 30.0,
+                  indicatorHeight: 35.0,
                   indicatorColor: AppColors.colorDefault,
                   tabBarIndicatorSize: TabBarIndicatorSize.tab,
                 ),
@@ -104,19 +104,23 @@ class HomeScreen extends GetView<HomeController> {
           body: TabBarView(
             controller: controller.tabController,
             children: controller.tabs.map((Tab tab) {
+              var indexList = controller.tabs.indexOf(tab);
               return KeepAlivePage(
-                  child: MasonryGridView.count(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    itemBuilder: (ctx, index) => ItemImage(
-                      image: listImage[index],
-                    ),
-                    itemCount: listImage.length,
-                    crossAxisCount: 2,
-                  ),);
+                child: GridView.builder(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1 / 1.2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10),
+                  itemBuilder: (ctx, index) => ItemImage(
+                    baseModel: controller.listData[indexList][index],
+                  ),
+                  itemCount: controller.listData[indexList].length,
+                ),
+              );
             }).toList(),
           ),
         ));

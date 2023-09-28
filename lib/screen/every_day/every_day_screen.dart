@@ -56,9 +56,9 @@ class EveryDayScreen extends GetView<EveryDayController> {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
             itemBuilder: (ctx, index) => ItemImage(
-              image: listImage[index],
+              baseModel: listImagePremierLeague[index],
             ),
-            itemCount: listImage.length,
+            itemCount: listImagePremierLeague.length,
             crossAxisCount: 2,
           ),
           const SizedBox(

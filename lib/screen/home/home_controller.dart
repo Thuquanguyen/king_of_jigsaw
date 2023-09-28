@@ -1,51 +1,85 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:king_of_jigsaw/core/assets/app_assets.dart';
 import 'package:king_of_jigsaw/core/base/base_controller.dart';
+import 'package:king_of_jigsaw/core/common/app_data.dart';
+import 'package:king_of_jigsaw/core/common/app_func.dart';
+import 'package:king_of_jigsaw/core/common/imagehelper.dart';
+import 'package:king_of_jigsaw/core/model/base_model.dart';
+import 'package:king_of_jigsaw/core/model/data.dart';
+import 'package:king_of_jigsaw/core/theme/textstyles.dart';
 
-class HomeController extends BaseController with SingleGetTickerProviderMixin {
+class HomeController extends BaseController
+    with GetSingleTickerProviderStateMixin {
   final controllerPage = PageController(viewportFraction: 0.9);
-  RxDouble currentIndex = 0.0.obs;
-  final List<Tab> tabs = const <Tab>[
-    Tab(text: "All"),
-    Tab(text: "Disney"), // Nhân vật
-    Tab(text: "Zodiac"), // Cung hoàng đạo
-    Tab(text: "Animal"), // Động vât
-    Tab(text: "Flower"), // Hoa
-    Tab(text: "Sport"), // Thể thao
-    Tab(text: "Cartoon"), // hoatj hình
-    Tab(text: "Travel"), // Du lịch
-    Tab(text: "Fruit"), // Hoa quả
-    Tab(text: "Birthday"), // Sinh nhật
-    Tab(text: "Miniature universe"), // Vũ trụ thu nhỏ
-    Tab(text: "Interior"), // Nội thất
-    Tab(text: "Secret"), // Bí ẩn
-    Tab(text: "Heart"), // Trái tim
-    Tab(text: "Home"), // Nơi trôn
-    Tab(text: "Bird"), // Chim
-    Tab(text: "Nature"), // Thiên nhiên
-    Tab(text: "Charity"), // Việc thiện
-    Tab(text: "Luxurious"), // Sang trọng
-    Tab(text: "Holiday"), // Ngày lễ
-    Tab(text: "Normal"), // Đơn giản
-    Tab(text: "Food"), // Thực phẩm
-    Tab(text: "Fashion"), // Thời trang
-    Tab(text: "Sea"), // Biển
-    Tab(text: "Fiction"), // Viễn tưởng
-    Tab(text: "Comic"),// truyện tranh
-    Tab(text: "Vehicle"), // Phương tiện
-    Tab(text: "Art"), // Nghệ thoaatj
-    Tab(text: "Reward"), // Phần thưởng
-    Tab(text: "Other"), // Khác
-  ];
+  RxInt currentIndex = 0.obs;
+  RxList<Tab> tabs = <Tab>[
+    Tab(
+      child: AppFunc().buildTabView(AppData().listTitles.value[0]),
+    ),
+    // Anh
+    Tab(child: AppFunc().buildTabView(AppData().listTitles.value[1])),
+    // tây ban nha
+    Tab(child: AppFunc().buildTabView(AppData().listTitles.value[2])),
+    // Ý
+    Tab(child: AppFunc().buildTabView(AppData().listTitles.value[3])),
+    // Đức
+    Tab(child: AppFunc().buildTabView(AppData().listTitles.value[4])),
+    // Pháp
+    Tab(child: AppFunc().buildTabView(AppData().listTitles.value[5])),
+    // Mỹ
+    Tab(child: AppFunc().buildTabView(AppData().listTitles.value[6])),
+    // Ả rập
+    // Tab(child: AppFunc().buildTabView(AppData().listTitles.value[7])),
+    // // Brazil
+    // Tab(child: AppFunc().buildTabView(AppData().listTitles.value[8])),
+    // // Argentina
+    // Tab(child: AppFunc().buildTabView(AppData().listTitles.value[9])),
+    // // Bồ đào nha
+    // Tab(child: AppFunc().buildTabView(AppData().listTitles.value[10])),
+    // // Hà Lan
+    // Tab(child: AppFunc().buildTabView(AppData().listTitles.value[11])),
+    // // Hàn Quốc
+    // Tab(child: AppFunc().buildTabView(AppData().listTitles.value[12])),
+    // // Nhật Bản
+    // Tab(child: AppFunc().buildTabView(AppData().listTitles.value[13])),
+    // // Thái Lan
+    // Tab(child: AppFunc().buildTabView(AppData().listTitles.value[14])),
+    // // Viet Nam
+    // Tab(child: AppFunc().buildTabView(AppData().listTitles.value[15])),
+    // // Indonesia
+    // Tab(child: AppFunc().buildTabView(AppData().listTitles.value[16]))
+  ].obs;
 
   TabController? tabController;
+
+  List<List<BaseModel>> listData = [
+    listImagePremierLeague,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+    listImageLaliga,
+  ];
 
   @override
   void onInit() {
     // TODO: implement onInit
     controllerPage.addListener(() {
-      currentIndex.value = controllerPage.page ?? 0;
+      currentIndex.value = (controllerPage.page ?? 0).toInt();
       currentIndex.refresh();
     });
     tabController = TabController(vsync: this, length: tabs.length);
@@ -58,4 +92,5 @@ class HomeController extends BaseController with SingleGetTickerProviderMixin {
     tabController!.dispose();
     super.dispose();
   }
+
 }

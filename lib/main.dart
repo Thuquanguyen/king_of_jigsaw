@@ -5,6 +5,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'binding/root_binding.dart';
+import 'core/app_translations.dart';
 import 'core/common/app_func.dart';
 import 'core/service/notification_service.dart';
 import 'core/theme/app_themes.dart';
@@ -28,6 +29,7 @@ void main() {
 
   runZonedGuarded(() async {
     initApp();
+    AppTranslations.init();
     initLoadingStyle();
     runApp(
       ScreenUtilInit(
@@ -43,7 +45,8 @@ void main() {
                 initialRoute: AppPages.INITIAL,
                 initialBinding: RootBinding(),
                 getPages: AppPages.routes,
-                locale: const Locale('en'),
+                locale: AppTranslations.fallbackLocale,
+                translations: AppTranslations(),
                 theme: AppThemes().general(),
                 builder: EasyLoading.init(builder: (context,child) => MediaQuery(
                     data: MediaQuery.of(context).copyWith(textScaleFactor: 1),

@@ -19,7 +19,7 @@ class SplashScreen extends GetView<SplashController> {
   Widget build(BuildContext context) {
     if (isCheck) {
       isCheck = false;
-      controller.onInit();
+      controller.onInitApp();
     }
     return AppScaffold(
       color: Colors.transparent,
@@ -31,7 +31,7 @@ class SplashScreen extends GetView<SplashController> {
             opacity: 0.8,
             child: ImageHelper.loadFromAsset(
               AppAssets.imgBackground,
-              fit: BoxFit.cover,
+              fit: BoxFit.fitHeight,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
             ),
@@ -41,17 +41,12 @@ class SplashScreen extends GetView<SplashController> {
             child: Column(
               children: [
                 const Spacer(),
-                ImageHelper.loadFromAsset(AppAssets.icVibrate,
-                    width: 60, height: 60),
-                const SizedBox(
-                  height: 8,
-                ),
                 AnimatedTextKit(
                   animatedTexts: [
                     TypewriterAnimatedText('King Of Jigsaw',
                         textStyle: TextStyles.defaultStyle
                             .setTextSize(30.sp)
-                            .setColor(AppColors.customColor40)
+                            .setColor(AppColors.customColor33)
                             .copyWith(
                                 fontFamily: GoogleFonts.amaranth().fontFamily),
                         speed: const Duration(milliseconds: 100)),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:king_of_jigsaw/core/model/base_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -100,14 +101,17 @@ class AppFunc {
   }
 
   static showAlertDialog(BuildContext context,
-      {String? message, String? title,Function? callBack}) {
+      {String? message, String? title, Function? callBack}) {
     // set up the button
     Widget okButton = TextButton(
-      child: Text("OKay!",style: TextStyles.defaultStyle,),
+      child: Text(
+        "OKay!",
+        style: TextStyles.defaultStyle,
+      ),
       onPressed: () {
-        if(callBack == null){
+        if (callBack == null) {
           Get.back();
-        }else{
+        } else {
           Get.back();
           callBack.call();
         }
@@ -133,20 +137,26 @@ class AppFunc {
   }
 
   static showAlertDialogConfirm(
-      BuildContext context, {
-        String? message,
-        Function()? callBack,
-        Function()? cancelCallback,
-      }) {
+    BuildContext context, {
+    String? message,
+    Function()? callBack,
+    Function()? cancelCallback,
+  }) {
     // set up the button
     Widget okButton = TextButton(
-      child:  Text("Unlock now",style: TextStyles.defaultStyle,),
+      child: Text(
+        "Unlock now",
+        style: TextStyles.defaultStyle,
+      ),
       onPressed: callBack,
     );
 
     // set up the button
     Widget viewAds = TextButton(
-      child:  Text("View ads",style: TextStyles.defaultStyle,),
+      child: Text(
+        "View ads",
+        style: TextStyles.defaultStyle,
+      ),
       onPressed: () {
         Get.back();
         cancelCallback?.call();
@@ -154,7 +164,10 @@ class AppFunc {
     );
 
     Widget cancelButton = TextButton(
-      child: Text("Cancel",style: TextStyles.defaultStyle,),
+      child: Text(
+        "Cancel",
+        style: TextStyles.defaultStyle,
+      ),
       onPressed: () {
         Get.back();
       },
@@ -164,7 +177,7 @@ class AppFunc {
     AlertDialog alert = AlertDialog(
       title: const Text("Hi! I'm Vibration"),
       content: Text(message ?? ''),
-      actions: [okButton, viewAds ,cancelButton],
+      actions: [okButton, viewAds, cancelButton],
     );
 
     // show the dialog
@@ -342,6 +355,25 @@ class AppFunc {
     listData?.forEach((element) {});
     return name;
   }
+
+  buildTabView(BaseModel baseModel) =>
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+            ImageHelper.loadFromAsset(baseModel.icon ?? '', width: 25, height: 25),
+            SizedBox(
+              width: 5.w,
+            ),
+          Text(
+            baseModel.title ?? '',
+            style: TextStyles.label1
+                .setColor(Colors.black)
+                .setHeight(1.5)
+                .setFontWeight(FontWeight.w600),
+          )
+        ],
+      );
 
   static Future<void> waitForContext(
       Function(BuildContext context) callback) async {
