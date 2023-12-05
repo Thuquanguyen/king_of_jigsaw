@@ -112,7 +112,7 @@ class LanguageScreen extends GetView<LanguageController> {
                   )),
             Container(
               color: Colors.black,
-              padding: EdgeInsets.only(left: 15.w, right: 15.w,top: 10.h,bottom: 30.h),
+              padding: EdgeInsets.only(left: 15.w, right: 15.w,top: 10.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

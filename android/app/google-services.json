@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "643909906666",
+    "project_id": "football-32725",
+    "storage_bucket": "football-32725.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643909906666:android:fda0f2b22e201287f6e793",
+        "android_client_info": {
+          "package_name": "com.mobile.puzzle.king_of_jigsaw"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuucEw8q49eFScUijsKtQLoFmeB2_6rdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

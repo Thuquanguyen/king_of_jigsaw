@@ -56,7 +56,8 @@ class SplashController extends BaseController {
       if(AdmodHandle().ads.isLimit == false){
         AdmodHandle().loadAdNativeMedium();
         AdmodHandle().loadAdNativeSmall();
-        AdmodHandle().loadAdNativeSmallWelcom();
+        AdmodHandle().loadAdNativeSmallWelcome();
+        AdmodHandle().loadAdNativeTheme();
       }
       if ((!isWelcome.value || !isLanguage) &&
           (AdmodHandle().ads.isLimit == false)) {

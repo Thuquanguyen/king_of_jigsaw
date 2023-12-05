@@ -17,6 +17,7 @@ class AdmodHandle {
 
   DataModel ads = DataModel();
   NativeAd? nativeAd;
+  NativeAd? nativeAdTheme;
   NativeAd? nativeAdSmall;
   NativeAd? nativeAdSmallWelcome;
   InterstitialAd? interstitialAd;
@@ -33,6 +34,7 @@ class AdmodHandle {
   RxBool nativeAdIsLoaded = false.obs;
   RxBool nativeSmallAdIsLoaded = false.obs;
   RxBool nativeSmallWelcomAdIsLoaded = false.obs;
+  RxBool nativeThemesLoaded = false.obs;
 
   bool isShowInter = true;
   bool isShowDialog = false;
@@ -263,13 +265,58 @@ class AdmodHandle {
       ..load();
   }
 
-  void loadAdNativeSmallWelcom() {
+  void loadAdNativeSmallWelcome() {
     nativeAdSmallWelcome = NativeAd(
         adUnitId: AdManager.nativeAppAdUnitId,
         listener: NativeAdListener(
           onAdLoaded: (ad) {
             print('$NativeAd loaded.');
             nativeSmallWelcomAdIsLoaded.value = true;
+          },
+          onAdFailedToLoad: (ad, error) {
+            // Dispose the ad here to free resources.
+            print('$NativeAd failed to load: $error');
+            ad.dispose();
+          },
+        ),
+        request: const AdRequest(),
+        // Styling
+        nativeTemplateStyle: NativeTemplateStyle(
+          // Required: Choose a template.
+            templateType: TemplateType.small,
+            // Optional: Customize the ad's style.
+            mainBackgroundColor: Colors.white,
+            cornerRadius: 10.0,
+            callToActionTextStyle: NativeTemplateTextStyle(
+                textColor: Colors.white,
+                backgroundColor: Colors.blue,
+                style: NativeTemplateFontStyle.monospace,
+                size: 16.0),
+            primaryTextStyle: NativeTemplateTextStyle(
+                textColor: Colors.black,
+                backgroundColor: Colors.transparent,
+                style: NativeTemplateFontStyle.bold,
+                size: 16.0),
+            secondaryTextStyle: NativeTemplateTextStyle(
+                textColor: Colors.green,
+                backgroundColor: Colors.black,
+                style: NativeTemplateFontStyle.bold,
+                size: 16.0),
+            tertiaryTextStyle: NativeTemplateTextStyle(
+                textColor: Colors.brown,
+                backgroundColor: Colors.transparent,
+                style: NativeTemplateFontStyle.normal,
+                size: 16.0)))
+      ..load();
+  }
+
+  void loadAdNativeTheme() {
+    nativeAdTheme = NativeAd(
+        adUnitId: AdManager.nativeAppAdUnitId,
+        listener: NativeAdListener(
+          onAdLoaded: (ad) {
+            print('$NativeAd loaded.');
+            nativeThemesLoaded.value = true;
           },
           onAdFailedToLoad: (ad, error) {
             // Dispose the ad here to free resources.
